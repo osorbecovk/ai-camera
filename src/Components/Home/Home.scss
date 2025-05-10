@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   min-height: 94.3vh;
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  // background: linear-gradient(135deg, #1a1a2e, #16213e);
   padding: 20px;
   overflow: auto;
 }
@@ -16,8 +16,25 @@
   width: 100%;
 }
 
+/* Контейнер кнопки камеры */
+.camera-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  
+  .camera-text {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+  }
+}
+
 /* Кнопка с иконкой камеры */
 .home--button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
   width: 140px;
   height: 140px;
@@ -37,12 +54,40 @@
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
   }
 
   &:active {
     transform: translateY(0);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Выбор камеры */
+.camera-select {
+  margin-bottom: 15px;
+  text-align: left;
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    
+    &:focus {
+      outline: none;
+      border-color: #00a8ff;
+      box-shadow: 0 0 0 2px rgba(0, 168, 255, 0.2);
+    }
   }
 }
 
@@ -99,14 +144,22 @@
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease;
 
-      &:first-child {
+      &.cancel-button {
         background: #e0e0e0;
         color: #333;
+        
+        &:hover {
+          background: #d0d0d0;
+        }
       }
 
-      &:last-child {
+      &.confirm-button {
         background: linear-gradient(135deg, #00a8ff, #0077cc);
         color: #fff;
+        
+        &:hover {
+          background: linear-gradient(135deg, #0095e0, #0066b3);
+        }
       }
 
       &:hover {
@@ -130,17 +183,29 @@
   background: #000;
   max-width: 100%;
   width: 800px;
-  height: 500px;
-}
-
-/* Улучшенный стиль видео */
-video {
-  width: 100%;
-  max-width: 720px;
-  height: auto;
-  display: block;
-  background: #000; /* Фон на случай задержки */
-  object-fit: cover; /* Заполняет контейнер */
+  min-height: 500px;
+  
+  video {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #000; /* Фон на случай задержки */
+    object-fit: cover; /* Заполняет контейнер */
+    transform: scaleX(-1); /* Отзеркаливание камеры */
+    min-height: 450px;
+  }
+  
+  .video-status {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    z-index: 10;
+  }
 }
 
 /* Кнопка закрытия */
@@ -152,10 +217,19 @@ video {
   height: 40px;
   border: none;
   border-radius: 50%;
+  background: rgba(255, 0, 0, 0.7);
+  color: white;
   font-size: 24px;
-  line-height: 40px;
-  text-align: center;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 0, 0, 0.9);
+  }
 }
 
 /* Сообщение об ошибке */
@@ -192,8 +266,10 @@ video {
     svg {
       font-size: 40px;
     }
-
-    span {
+  }
+  
+  .camera-button-container {
+    .camera-text {
       font-size: 14px;
     }
   }
@@ -221,14 +297,26 @@ video {
     }
   }
 
-  video {
-    max-width: 100%;
+  .camera--preview {
+    video {
+      min-height: 300px;
+    }
   }
 
   .close--button {
     width: 32px;
     height: 32px;
     font-size: 20px;
-    line-height: 32px;
+  }
+  
+  .camera-select {
+    label {
+      font-size: 12px;
+    }
+    
+    select {
+      padding: 8px;
+      font-size: 12px;
+    }
   }
 }
